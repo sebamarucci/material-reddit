@@ -5,3 +5,9 @@ export const loadTopEntries = (after, count, limit, onSuccess, onFailure) => ({ 
     onFailure,
   }
 });
+
+
+export const updateEntry = (entry) => ({
+  type: "UPDATE_REDDIT_ENTRY_SUCCESS",
+  payload: entry
+});

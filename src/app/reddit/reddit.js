@@ -9,6 +9,14 @@ export const redditEntryReducer = (state = [], action) => {
       }
       return [];
 
+    case 'UPDATE_REDDIT_ENTRY_SUCCESS':
+      return state.map(e => {
+        if (e.id === action.payload.id){
+          return action.payload;
+        }
+        return e;
+      });
+
     default:
       return state;
   }
