@@ -1,24 +1,15 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {makeStyles, Typography} from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import Image from "material-ui-image/lib/components/Image/Image";
-import {getRedditEntry} from "../selector";
+import {getRedditEntry, getRedditLoadStatus} from "../selector";
 import {connect} from "react-redux";
 import Skeleton from "react-loading-skeleton";
-
-const useStyles = makeStyles(theme => ({
-  imageContainer:{
-    width: "auto",
-    height: "auto",
-    minHeight: "100px",
-    minWidth: "100px"
-  }
-}));
+import {withRouter} from "react-router";
 
 function EntryDetail(props){
 
   const {entry = {}} = props;
-  const classes = useStyles();
 
   return(
     <Grid container direction="row" spacing={8} padding={8}>
@@ -58,7 +49,15 @@ function EntryDetailLoading(props){
 }
 
 function EntryDetailContainer(props){
-  const {entry} = props;
+  const {entry, loadingStatus} = props;
+  const entryId = props.match.params.entryId;
+
+  useEffect(() =>{
+    if(!entry && loadingStatus === "LOADED"){
+      props.history.push("/404");
+    }
+  },[entryId, loadingStatus]);
+
   return(
     !entry ? <EntryDetailLoading/>
       : <EntryDetail {...props}/>
@@ -69,9 +68,10 @@ function EntryDetailContainer(props){
 const mapStateToProps = (state, props) => {
   const entryId = props.match.params.entryId;
   return {
-    entry: getRedditEntry(state,entryId)
+    entry: getRedditEntry(state,entryId),
+    loadingStatus:getRedditLoadStatus(state)
   };
 
 };
 
-export default connect(mapStateToProps)(EntryDetailContainer);
+export default connect(mapStateToProps)(withRouter(EntryDetailContainer));
