@@ -87,6 +87,7 @@ function RedditDrawer(props) {
 
   function dismissAll(){
     setRedditEntries([]);
+    history.push("/");
   }
 
   function dismiss(entryId) {
