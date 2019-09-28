@@ -7,6 +7,7 @@ import {makeStyles} from "@material-ui/core";
 import {connect} from 'react-redux';
 import {getTop50Entries} from "./selector";
 import {loadTopEntries, updateEntry} from "./action";
+import EntryDetailPage from "../reddit/EntryDetail"
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -42,7 +43,8 @@ function Reddit(props) {
         <RedditDrawer {...props}/>
         <main className={classes.content}>
           <div className={classes.toolbar} />
-          <Route path="/" render={(props) => <div>Nothing yet</div>}/>
+          <Route exact path="/" render={(props) => <div>Nothing yet</div>}/>
+          <Route exact path="/detail/:entryId" component={EntryDetailPage}/>
         </main>
       </div>
     </HashRouter>

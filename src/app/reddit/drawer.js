@@ -12,6 +12,7 @@ import Typography from '@material-ui/core/Typography';
 import {makeStyles, useTheme} from '@material-ui/core/styles';
 import EntryList from "./list/list";
 import Button from "@material-ui/core/Button";
+import {withRouter} from "react-router-dom";
 
 const drawerWidth = 350;
 
@@ -65,7 +66,7 @@ const useStyles = makeStyles(theme => ({
 function RedditDrawer(props) {
 
   const [redditEntries, setRedditEntries] = useState([]);
-  const { container, entries, updateEntry } = props;
+  const { container, entries, updateEntry, history } = props;
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -81,6 +82,7 @@ function RedditDrawer(props) {
 
   function viewDetails (entry){
     updateEntry({...entry, visited: true});
+    history.push("/detail/"+entry.id);
   }
 
   function dismissAll(){
@@ -163,4 +165,4 @@ RedditDrawer.propTypes = {
   container: PropTypes.instanceOf(typeof Element === 'undefined' ? Object : Element),
 };
 
-export default RedditDrawer;
+export default withRouter(RedditDrawer);
