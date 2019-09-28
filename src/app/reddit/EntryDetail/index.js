@@ -4,6 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import Image from "material-ui-image/lib/components/Image/Image";
 import {getRedditEntry} from "../selector";
 import {connect} from "react-redux";
+import Skeleton from "react-loading-skeleton";
 
 const useStyles = makeStyles(theme => ({
   imageContainer:{
@@ -38,10 +39,29 @@ function EntryDetail(props){
   )
 }
 
-function EntryDetailContainer(props){
 
+function EntryDetailLoading(props){
+
+  return (<Grid container direction="row" spacing={8} padding={8}>
+    <Grid item xs={3}>
+      <Skeleton height={20}/>
+    </Grid>
+    <Grid container alignItems="center" justify="center" item>
+      <div  >
+        <Skeleton height={80} width={80}/>
+      </div>
+    </Grid>
+    <Grid xs={5} item>
+      <Skeleton height={20}/>
+    </Grid>
+  </Grid>)
+}
+
+function EntryDetailContainer(props){
+  const {entry} = props;
   return(
-    <EntryDetail {...props}/>
+    !entry ? <EntryDetailLoading/>
+      : <EntryDetail {...props}/>
   )
 }
 
