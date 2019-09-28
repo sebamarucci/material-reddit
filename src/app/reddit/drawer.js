@@ -13,6 +13,8 @@ import {makeStyles, useTheme} from '@material-ui/core/styles';
 import EntryList from "./list/list";
 import Button from "@material-ui/core/Button";
 import {withRouter} from "react-router-dom";
+import EntryListLoading from "./list/list-loading-skeleton";
+import Skeleton from "react-loading-skeleton";
 
 const drawerWidth = 350;
 
@@ -66,7 +68,7 @@ const useStyles = makeStyles(theme => ({
 function RedditDrawer(props) {
 
   const [redditEntries, setRedditEntries] = useState([]);
-  const { container, entries, updateEntry, history } = props;
+  const { container, entries, updateEntry, history, loadingStatus } = props;
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -105,6 +107,17 @@ function RedditDrawer(props) {
     </div>
   );
 
+  const drawerLoading = (
+    <div className={classes.container}>
+      <div className={classes.toolbar}/>
+      <Divider />
+      <div className={classes.content}>
+        <EntryListLoading/>
+      </div>
+      <Skeleton height={30} width={30}/>
+    </div>
+  );
+
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -139,7 +152,7 @@ function RedditDrawer(props) {
               keepMounted: true, // Better open performance on mobile.
             }}
           >
-            {drawer}
+            {loadingStatus === "LOADING" ? drawerLoading : drawer}
           </Drawer>
         </Hidden>
         <Hidden xsDown implementation="css">
@@ -150,7 +163,7 @@ function RedditDrawer(props) {
             variant="permanent"
             open
           >
-            {drawer}
+            {loadingStatus === "LOADING" ? drawerLoading : drawer}
           </Drawer>
         </Hidden>
       </nav>

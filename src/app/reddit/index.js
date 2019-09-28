@@ -5,7 +5,7 @@ import RedditDrawer from "./drawer";
 import {Route, Switch} from "react-router";
 import {makeStyles} from "@material-ui/core";
 import {connect} from 'react-redux';
-import {getTop50Entries} from "./selector";
+import {getRedditLoadStatus, getTop50Entries} from "./selector";
 import {loadTopEntries, updateEntry} from "./action";
 import EntryDetailPage from "../reddit/EntryDetail"
 
@@ -66,7 +66,8 @@ function RedditContainer(props){
 
 const mapStateToProps = (state, props) => {
   return {
-    entries: getTop50Entries(state)
+    entries: getTop50Entries(state),
+    loadingStatus: getRedditLoadStatus(state)
   };
 
 };
