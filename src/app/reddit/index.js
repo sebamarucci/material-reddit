@@ -2,7 +2,7 @@ import React, {useEffect} from 'react'
 import {HashRouter} from "react-router-dom";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import RedditDrawer from "./drawer";
-import {Route} from "react-router";
+import {Route, Switch} from "react-router";
 import {makeStyles} from "@material-ui/core";
 import {connect} from 'react-redux';
 import {getTop50Entries} from "./selector";
@@ -12,7 +12,6 @@ import EntryDetailPage from "../reddit/EntryDetail"
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
-    // height: 440,
     zIndex: 1,
     overflow: 'hidden',
     position: 'relative',
@@ -43,8 +42,11 @@ function Reddit(props) {
         <RedditDrawer {...props}/>
         <main className={classes.content}>
           <div className={classes.toolbar} />
-          <Route exact path="/" render={(props) => <div>Nothing yet</div>}/>
-          <Route exact path="/detail/:entryId" component={EntryDetailPage}/>
+          <Switch>
+            <Route exact path="/" render={(props) => <div></div>}/>
+            <Route exact path="/detail/:entryId" component={EntryDetailPage}/>
+            <Route render={(props) => <div>Not Found</div>}/>
+          </Switch>
         </main>
       </div>
     </HashRouter>
