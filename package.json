@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "description": "Describe material-reddit here",
   "private": true,
+  "homepage": "https://sebamarucci.github.io/material-reddit/",
+  "repository": "https://github.com/sebamarucci/material-reddit",
   "scripts": {
     "build": "nwb build-react-app",
     "clean": "nwb clean-app",
@@ -33,6 +35,5 @@
     "gh-pages": "^2.1.1"
   },
   "author": "",
-  "license": "MIT",
-  "repository": ""
+  "license": "MIT"
 }
