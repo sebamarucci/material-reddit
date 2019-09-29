@@ -1,0 +1,37 @@
+html, body, #app {
+  height: 100%;
+}
+body {
+  font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.item-enter {
+    opacity: 0;
+}
+.item-enter-active {
+    opacity: 1;
+    -webkit-transition: opacity 500ms ease-in;
+    -o-transition: opacity 500ms ease-in;
+    transition: opacity 500ms ease-in;
+}
+.item-exit {
+    opacity: 1;
+}
+.item-exit-active {
+    opacity: 0;
+    -webkit-transition: opacity 500ms ease-in;
+    -o-transition: opacity 500ms ease-in;
+    transition: opacity 500ms ease-in;
+}
+
+.dot {
+    height: .75em;
+    width: .75em;
+    background-color: dodgerblue;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+/*# sourceMappingURL=app.49835bba.css.map*/
