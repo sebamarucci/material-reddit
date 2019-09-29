@@ -6,7 +6,7 @@ import axios from "axios";
 import isFunction from "lodash/isFunction";
 
 const redditAxios = axios.create({
-  baseURL: 'http://www.reddit.com',
+  baseURL: 'https://www.reddit.com',
   headers: {
     'Accept': 'application/json',
     'Content-Type': 'application/json',
