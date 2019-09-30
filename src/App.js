@@ -1,9 +1,10 @@
 import React from 'react'
-import { createMuiTheme } from '@material-ui/core/styles';
+import {createMuiTheme} from '@material-ui/core/styles';
 import {MuiThemeProvider} from "@material-ui/core";
 import Reddit from "./app/reddit";
 import {Provider} from "react-redux";
 import * as reduxstore from './reduxstore/index';
+
 const theme = createMuiTheme({
   typography: {
     useNextVariants: true,

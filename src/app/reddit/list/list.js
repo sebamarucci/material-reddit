@@ -30,7 +30,7 @@ export default function EntryList(props) {
   }
 
   return (
-    <List>
+    <List data-testid={"reddit-entries-list"}>
       <TransitionGroup>
         {entries.map(entry =>
           <CSSTransition

@@ -8,10 +8,10 @@ import Skeleton from "react-loading-skeleton";
 export default function EntryListLoading(props) {
 
   return (
-    <List>
+    <List data-testid="list-loading-container">
       {[1,2,3,4,5,6,7,8].map(i =>
         <div key={i}>
-          <ListItem button onClick={() => handleViewDetails(entry)}>
+          <ListItem>
             <Grid container direction="row" spacing={1}>
               <Grid container direction="row" item>
                 <Grid container alignItems="center" justify="center" item xs={1}>

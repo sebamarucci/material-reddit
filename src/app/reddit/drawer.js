@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
 import Hidden from '@material-ui/core/Hidden';
@@ -145,7 +144,6 @@ function RedditDrawer(props) {
 
   return (
     <div className={classes.root}>
-      <CssBaseline />
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
           <IconButton
@@ -163,7 +161,7 @@ function RedditDrawer(props) {
         </Toolbar>
       </AppBar>
       <nav  className={classes.drawer} aria-label="mailbox folders">
-        <Hidden smUp implementation="css">
+        <Hidden smUp>
           <Drawer
             container={container}
             variant="temporary"
@@ -180,7 +178,7 @@ function RedditDrawer(props) {
             {loadingStatus === "LOADING" ? drawerLoading : drawer}
           </Drawer>
         </Hidden>
-        <Hidden xsDown implementation="css">
+        <Hidden xsDown>
           <Drawer
             classes={{
               paper: classes.drawerPaper,
