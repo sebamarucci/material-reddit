@@ -17,8 +17,11 @@ import EntryListLoading from "./list/list-loading-skeleton";
 import Skeleton from "react-loading-skeleton";
 import {matchPath} from "react-router";
 import get from "lodash/get";
+import Pagination from "material-ui-flat-pagination";
 
 const drawerWidth = 350;
+
+const LIST_PAGE_SIZE = 15;
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -70,6 +73,7 @@ const useStyles = makeStyles(theme => ({
 function RedditDrawer(props) {
 
   const [redditEntries, setRedditEntries] = useState([]);
+  const [pageOffset, setPageOffset] = useState(0);
   const { container, entries, updateEntry, history, loadingStatus } = props;
   const classes = useStyles();
   const theme = useTheme();
@@ -105,12 +109,24 @@ function RedditDrawer(props) {
     setRedditEntries(redditEntries.filter(e => e.id !== entryId));
   }
 
+  function handlePagination(event, offset, pageNumber){
+    setPageOffset(offset );
+  }
+
   const drawer = (
     <div className={classes.container}>
       <div className={classes.toolbar}/>
       <Divider />
       <div className={classes.content}>
-        <EntryList entries={redditEntries} handleDismiss={dismiss} handleViewDetails={viewDetails} selectedEntryId={selectedEntryId}/>
+        <EntryList entries={redditEntries.slice(pageOffset, pageOffset + LIST_PAGE_SIZE)} handleDismiss={dismiss} handleViewDetails={viewDetails} selectedEntryId={selectedEntryId}/>
+      </div>
+      <div>
+        <Pagination
+          limit={LIST_PAGE_SIZE}
+          offset={pageOffset}
+          total={redditEntries.length}
+          onClick={handlePagination}
+        />
       </div>
       <Button className={classes.footerButton} disabled={redditEntries.length === 0} onClick={dismissAll}>Dismiss All</Button>
     </div>
