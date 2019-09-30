@@ -31,7 +31,10 @@ export default function EntryListLoading(props) {
                   <Skeleton height={20}/>
                 </Grid>
               </Grid>
-              <Grid container item>
+              <Grid container direction="row" alignItems="center" justify="flex-start" spacing={4} item>
+                <Grid item xs={4}>
+                  <Skeleton height={20}/>
+                </Grid>
                 <Grid item xs={4}>
                   <Skeleton height={20}/>
                 </Grid>

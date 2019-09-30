@@ -7,20 +7,22 @@ import {connect} from "react-redux";
 import Skeleton from "react-loading-skeleton";
 import {withRouter} from "react-router";
 
-function EntryDetail(props){
+function EntryDetail(props) {
 
   const {entry = {}} = props;
 
-  return(
+  return (
     <Grid container direction="row" spacing={8} padding={8}>
       <Grid item>
         <Typography variant={"h6"}>{entry.author}</Typography>
       </Grid>
       <Grid container alignItems="center" justify="center" item>
-        <div  >
-          <Image src={entry.thumbnail} style={{padding: "0"}}
-                 imageStyle={{position: "relative"}}
-          />
+        <div>
+          <a href={entry.thumbnail} download={/[^/]*$/.exec(entry.thumbnail)[0]}>
+            <Image src={entry.thumbnail} style={{padding: "0"}}
+                   imageStyle={{position: "relative"}}
+            />
+          </a>
         </div>
       </Grid>
       <Grid item>
@@ -31,14 +33,14 @@ function EntryDetail(props){
 }
 
 
-function EntryDetailLoading(props){
+function EntryDetailLoading(props) {
 
   return (<Grid container direction="row" spacing={8} padding={8}>
     <Grid item xs={3}>
       <Skeleton height={20}/>
     </Grid>
     <Grid container alignItems="center" justify="center" item>
-      <div  >
+      <div>
         <Skeleton height={80} width={80}/>
       </div>
     </Grid>
@@ -48,17 +50,17 @@ function EntryDetailLoading(props){
   </Grid>)
 }
 
-function EntryDetailContainer(props){
+function EntryDetailContainer(props) {
   const {entry, loadingStatus} = props;
   const entryId = props.match.params.entryId;
 
-  useEffect(() =>{
-    if(!entry && loadingStatus === "LOADED"){
+  useEffect(() => {
+    if (!entry && loadingStatus === "LOADED") {
       props.history.push("/404");
     }
-  },[entryId, loadingStatus]);
+  }, [entryId, loadingStatus]);
 
-  return(
+  return (
     !entry ? <EntryDetailLoading/>
       : <EntryDetail {...props}/>
   )
@@ -68,8 +70,8 @@ function EntryDetailContainer(props){
 const mapStateToProps = (state, props) => {
   const entryId = props.match.params.entryId;
   return {
-    entry: getRedditEntry(state,entryId),
-    loadingStatus:getRedditLoadStatus(state)
+    entry: getRedditEntry(state, entryId),
+    loadingStatus: getRedditLoadStatus(state)
   };
 
 };

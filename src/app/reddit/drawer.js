@@ -15,6 +15,8 @@ import Button from "@material-ui/core/Button";
 import {withRouter} from "react-router-dom";
 import EntryListLoading from "./list/list-loading-skeleton";
 import Skeleton from "react-loading-skeleton";
+import {matchPath} from "react-router";
+import get from "lodash/get";
 
 const drawerWidth = 350;
 
@@ -73,6 +75,13 @@ function RedditDrawer(props) {
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
 
+  const match = matchPath(props.history.location.pathname, {
+    path: '/detail/:entryId',
+    exact: true,
+    strict: false
+  });
+  const selectedEntryId = get(match, "params.entryId");
+
 
   useEffect(() =>{
     setRedditEntries(props.entries);
@@ -101,7 +110,7 @@ function RedditDrawer(props) {
       <div className={classes.toolbar}/>
       <Divider />
       <div className={classes.content}>
-        <EntryList entries={redditEntries} handleDismiss={dismiss} handleViewDetails={viewDetails}/>
+        <EntryList entries={redditEntries} handleDismiss={dismiss} handleViewDetails={viewDetails} selectedEntryId={selectedEntryId}/>
       </div>
       <Button className={classes.footerButton} disabled={redditEntries.length === 0} onClick={dismissAll}>Dismiss All</Button>
     </div>

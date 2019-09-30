@@ -12,9 +12,17 @@ import PropTypes from "prop-types";
 import './list.css';
 import fromNow from "../../common/fromNow";
 
+
+function commentsNumber(numberOfComments) {
+  if(!numberOfComments || numberOfComments === 0){
+    return "no comments";
+  }
+  return numberOfComments + " comment"+(numberOfComments === 1 ? "":"s");
+}
+
 export default function EntryList(props) {
 
-  const {entries = [], handleDismiss, handleViewDetails} = props;
+  const {entries = [], handleDismiss, handleViewDetails, selectedEntryId} = props;
 
   function dismiss(event, entryId){
     event.stopPropagation();
@@ -31,7 +39,7 @@ export default function EntryList(props) {
             classNames="item"
           >
             <div>
-              <ListItem button onClick={() => handleViewDetails(entry)}>
+              <ListItem button onClick={() => handleViewDetails(entry)} selected={entry.id === selectedEntryId}>
                 <Grid container direction="row" spacing={1}>
                   <Grid container direction="row" item>
                     <Grid container alignItems="center" justify="center" item xs={1}>
@@ -49,9 +57,12 @@ export default function EntryList(props) {
                       <Typography>{entry.title}</Typography>
                     </Grid>
                   </Grid>
-                  <Grid container item>
+                  <Grid container direction="row" alignItems="center" justify="flex-start" item>
                     <Grid item xs={4}>
-                      <Button onClick={(event) => dismiss(event, entry.id)}>Dismiss</Button>
+                      <Button variant={"outlined"} onClick={(event) => dismiss(event, entry.id)}>Dismiss</Button>
+                    </Grid>
+                    <Grid item xs={4}>
+                      <Typography>{commentsNumber(entry.num_comments)}</Typography>
                     </Grid>
                   </Grid>
                 </Grid>
@@ -68,5 +79,6 @@ export default function EntryList(props) {
 EntryList.propTypes = {
   entries: PropTypes.array.isRequired,
   handleDismiss: PropTypes.func.isRequired,
-  handleViewDetails: PropTypes.func.isRequired
+  handleViewDetails: PropTypes.func.isRequired,
+  selectedEntryId: PropTypes.string
 };
